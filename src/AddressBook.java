@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -8,8 +9,16 @@ public class AddressBook {
     public static Scanner sc = new Scanner(System.in);
     //contact of person stored in arraylist
     public ArrayList<ContactsOfPersons> contactList = new ArrayList<>();
+    public HashMap<String, ArrayList<ContactsOfPersons>> personByCity;
+    public HashMap<String, ArrayList<ContactsOfPersons>> personByState;
 
-    public void addContactDetails(){
+    public AddressBook() {
+        personByCity = new HashMap<String, ArrayList<ContactsOfPersons>>();
+        personByState = new HashMap<String, ArrayList<ContactsOfPersons>>();
+        contactList = new ArrayList<>();
+    }
+
+    public ArrayList<ContactsOfPersons> addContactDetails(){
         System.out.println("Enter the Details of Contact Details  person");
         System.out.println("Enter the first name");
         String firstName = sc.next();
@@ -34,7 +43,17 @@ public class AddressBook {
             //passing the value in constructor
             ContactsOfPersons contactofPerson = new ContactsOfPersons(firstName, lastName, address, city, state, email, phoneNumber, zip);
             contactList.add(contactofPerson);
+            if (!personByState.containsKey(state)) {
+                personByState.put(state, new ArrayList<ContactsOfPersons>());
+            }
+            personByState.get(state).add(contactofPerson);
+
+            if (!personByCity.containsKey(city)) {
+                personByCity.put(city, new ArrayList<ContactsOfPersons>());
+            }
+            personByCity.get(city).add(contactofPerson);
         }
+        return contactList;
     }
 
     public boolean editContactDetails(String Name) {

@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ public class Address_Book_System {
     private static AddressBook addressBook = new AddressBook();
     public Map<String,AddressBook> addressBookListMap = new HashMap<>();
 
-    public void addAddressBook(String bookName){
+    public void addAddressBook(String addressBookName){
         Address_Book_System addBookSystem = new Address_Book_System();
         boolean flag = true;
 
@@ -26,7 +27,6 @@ public class Address_Book_System {
             {
                 case 1:
                     addressBook.addContactDetails();
-                    addressBook.display();
                     break;
 
                 case 2:
@@ -39,7 +39,6 @@ public class Address_Book_System {
                     } else {
                         System.out.println("List Cannot be Edited");
                     }
-                    addressBook.display();
                     break;
 
                 case 3:
@@ -51,7 +50,6 @@ public class Address_Book_System {
                     } else {
                         System.out.println("List Cannot be Deleted");
                     }
-                    addressBook.display();
                     break;
 
                 case 4:
@@ -60,7 +58,8 @@ public class Address_Book_System {
 
             }
         }
-        addressBookListMap.put(bookName, addressBook);
+        addressBookListMap.put(addressBookName, addressBook);
+        System.out.println("AddressBook Added Successfully");
     }
 
     private void searchPersonByState(String stateName) {
@@ -79,6 +78,30 @@ public class Address_Book_System {
         }
     }
 
+    private void viewPersonByStateUsingHashmap(String stateName) {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            ArrayList<ContactsOfPersons> contacts = value.personByState.entrySet().stream()
+                    .filter(findState -> findState.getKey().equals(stateName)).map(Map.Entry::getValue).findFirst()
+                    .orElse(null);
+            for (ContactsOfPersons contact : contacts) {
+                System.out.println("First Name: " + contact.getFirstName() + " Last Name: " + contact.getLastName());
+            }
+        }
+    }
+
+    private void viewPersonByCityUsingHashMap(String cityName) {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            ArrayList<ContactsOfPersons> contacts = value.personByCity.entrySet().stream()
+                    .filter(findCity -> findCity.getKey().equals(cityName)).map(Map.Entry::getValue).findFirst()
+                    .orElse(null);
+            for (ContactsOfPersons contact : contacts) {
+                System.out.println("First Name: " + contact.getFirstName() + " Last Name: " + contact.getLastName());
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome to the Address Book Management System using Java Stream");
         Address_Book_System addBookSystem = new Address_Book_System();
@@ -90,7 +113,9 @@ public class Address_Book_System {
                 System.out.println("1.Add New Address Book");
                 System.out.println("2.Search from a City");
                 System.out.println("3.Search from a State");
-                System.out.println("4.Exit");
+                System.out.println("4.View contact By State Using State and Person HashMap");
+                System.out.println("5.View Contact by city Using City and Person HashMap");
+                System.out.println("6.Exit");
                 System.out.println("Enter choice: ");
                 int option = sc.nextInt();
                 switch (option){
@@ -120,6 +145,19 @@ public class Address_Book_System {
                     }
 
                     case 4:{
+                        System.out.println("Enter Name of State: ");
+                        String stateName1 = sc.next();
+                        addBookSystem.viewPersonByStateUsingHashmap(stateName1);
+                        break;
+                    }
+
+                    case 5:{
+                        System.out.println("Enter Name of City: ");
+                        String cityName1 = sc.next();
+                        addBookSystem.viewPersonByCityUsingHashMap(cityName1);
+                        break;
+                    }
+                    case 6:{
                         flag = false;
                         break;
                     }

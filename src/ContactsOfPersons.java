@@ -79,4 +79,12 @@ public class ContactsOfPersons {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    //to string generate
+    @Override
+    public String toString() {
+        return "ContactsOfPersons [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
+                + city + ", state=" + state + ", email=" + email + ", zip=" + zip + ", phoneNumber=" + phoneNumber
+                + "]";
+    }
 }

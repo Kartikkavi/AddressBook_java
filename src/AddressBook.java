@@ -1,6 +1,8 @@
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBook {
     public static Scanner sc = new Scanner(System.in);
@@ -93,6 +95,25 @@ public class AddressBook {
         return flag == 1;
     }
 
+    // used java stream
+    public void getPersonNameByState(String State) {
+        List<ContactsOfPersons> list = contactList.stream().filter(contactName -> contactName.getState().equals(State))
+                .collect(Collectors.toList());
+        for (ContactsOfPersons contact : list) {
+            System.out.println("First Name: " + contact.getFirstName());
+            System.out.println("Last Name: " + contact.getLastName());
+        }
+
+    }
+
+    public void getPersonNameByCity(String cityName) {
+        List<ContactsOfPersons> list = contactList.stream().filter(contactName -> contactName.getCity().equals(cityName))
+                .collect(Collectors.toList());
+        for (ContactsOfPersons contact : list) {
+            System.out.println("First Name: " + contact.getFirstName());
+            System.out.println("Last Name: " + contact.getLastName());
+        }
+    }
     public void display() {
         for (ContactsOfPersons person : contactList)				//Display method
             System.out.println(person);

@@ -60,35 +60,69 @@ public class Address_Book_System {
 
             }
         }
+        addressBookListMap.put(bookName, addressBook);
     }
 
+    private void searchPersonByState(String stateName) {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            System.out.println("The Address Book: " + entry.getKey());
+            value.getPersonNameByState(stateName);
+        }
+    }
 
+    private void searchPersonByCity(String cityName) {
+        for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+            AddressBook value = entry.getValue();
+            System.out.println("The Address Book: " + entry.getKey());
+            value.getPersonNameByCity(cityName);
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println("Welcome to the Address Book Management System using Java Stream");
-        Address_Book_System addressBookMain = new Address_Book_System();
+        Address_Book_System addBookSystem = new Address_Book_System();
         boolean flag =true;
         while(flag)
         {
-            System.out.println("1.Add New Address Book");
-            System.out.println("2.Exit");
-            System.out.println("Enter choice: ");
-            int option = sc.nextInt();
-            switch (option){
-                case 1: {
-                    System.out.println("Enter the Name of Address Book: ");
-                    String addressBookName = sc.next();
-                    if(addressBookMain.addressBookListMap.containsKey(addressBookName)){
-                        System.out.println("The Address book Already Exists");
-                        break;
-                    }else {
-                        addressBookMain.addAddressBook(addressBookName);
+            while (flag)
+            {
+                System.out.println("1.Add New Address Book");
+                System.out.println("2.Search from a City");
+                System.out.println("3.Search from a State");
+                System.out.println("4.Exit");
+                System.out.println("Enter choice: ");
+                int option = sc.nextInt();
+                switch (option){
+                    case 1: {
+                        System.out.println("Enter the Name of Address Book: ");
+                        String addressBookName = sc.next();
+                        if(addBookSystem.addressBookListMap.containsKey(addressBookName)){
+                            System.out.println("The Address book Already Exists");
+                            break;
+                        }else {
+                            addBookSystem.addAddressBook(addressBookName);
+                            break;
+                        }
+                    }
+                    case 2:{
+                        System.out.println("Enter the City Name:-");
+                        String CityName = sc.next();
+                        addBookSystem.searchPersonByCity(CityName);
                         break;
                     }
-                }
-                case 2:{
-                    flag = false;
-                    break;
+
+                    case 3:{
+                        System.out.println("Enter the State Name:-");
+                        String StateName = sc.next();
+                        addBookSystem.searchPersonByState(StateName);
+                        break;
+                    }
+
+                    case 4:{
+                        flag = false;
+                        break;
+                    }
                 }
             }
         }

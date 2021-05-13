@@ -1,7 +1,9 @@
 public class ContactsOfPersons {
+
+    // Attributes of person
     private String firstName, lastName, address, city, state, email, zip, phoneNumber;
 
-    // constructor
+    // constructor of contactOfperson
     public ContactsOfPersons(String firstName, String lastName, String address, String city, String state, String email,
                              String phoneNumber, String zip) {
         setFirstName(firstName);
@@ -12,7 +14,6 @@ public class ContactsOfPersons {
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setZip(zip);
-
     }
 
     public String getFirstName() {
@@ -78,7 +79,6 @@ public class ContactsOfPersons {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
     //to string generate
     @Override
     public String toString() {

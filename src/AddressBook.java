@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -5,11 +6,12 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+
+    //arraylist  and hashmap implementation
     public static Scanner sc = new Scanner(System.in);
-    //contact of person stored in arraylist
-    public ArrayList<ContactsOfPersons> contactList = new ArrayList<>();
-    public HashMap<String, ArrayList<ContactsOfPersons>> personByCity;
+    public ArrayList<ContactsOfPersons> contactList ;
     public HashMap<String, ArrayList<ContactsOfPersons>> personByState;
+    public HashMap<String, ArrayList<ContactsOfPersons>> personByCity;
 
     public AddressBook() {
         personByCity = new HashMap<String, ArrayList<ContactsOfPersons>>();
@@ -18,13 +20,12 @@ public class AddressBook {
     }
 
     public ArrayList<ContactsOfPersons> addContactDetails(){
-        System.out.println("Enter the Details of Contact Details  person");
+        System.out.println("Enter the Details of ContactDetails");
         System.out.println("Enter the first name");
         String firstName = sc.next();
-        if (Duplicate(firstName)) {
-            System.out.println("Person with this name is already exist");
-        }
-        else {
+        if (checkDuplicate(firstName)) {
+            System.out.println("Person is already exist");
+        }else {
             System.out.println("Enter the Last name");
             String lastName = sc.next();
             System.out.println("Enter the Address");
@@ -39,27 +40,25 @@ public class AddressBook {
             String zip = sc.next();
             System.out.println("Enter the contact number...");
             String phoneNumber = sc.next();
-            //passing the value in constructor
-            ContactsOfPersons contactofPerson = new ContactsOfPersons(firstName, lastName, address, city, state, email, phoneNumber, zip);
-            contactList.add(contactofPerson);
-            if (!personByState.containsKey(state)) {
-                personByState.put(state, new ArrayList<ContactsOfPersons>());
+            ContactsOfPersons contactsofPersons = new ContactsOfPersons(firstName, lastName, address, city, state, email, phoneNumber, zip);
+            contactList.add(contactsofPersons);
+            if(!personByState.containsKey(state)){
+                personByState.put(state,new ArrayList<ContactsOfPersons>());
             }
-            personByState.get(state).add(contactofPerson);
+            personByState.get(state).add(contactsofPersons);
 
-            if (!personByCity.containsKey(city)) {
-                personByCity.put(city, new ArrayList<ContactsOfPersons>());
+            if(!personByCity.containsKey(city)){
+                personByCity.put(city,new ArrayList<ContactsOfPersons>());
             }
-            personByCity.get(city).add(contactofPerson);
-        }
-        return contactList;
+            personByCity.get(city).add(contactsofPersons);
+        }return contactList;
     }
 
     public boolean editContactDetails(String Name) {
         int flag = 0;
         for(ContactsOfPersons contact: contactList)
         {
-            if(contact.getFirstName().equals(Name))		//used equal to method for check name
+            if(contact.getFirstName().equals(Name))
             {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Enter Address: ");
@@ -85,6 +84,7 @@ public class AddressBook {
         }
         return flag == 1;
     }
+
     public boolean deleteContact(String name) {
         int flag = 0;
         for(ContactsOfPersons contact: contactList)
@@ -99,7 +99,7 @@ public class AddressBook {
         return flag == 1;
     }
 
-    public boolean Duplicate(String fname)
+    public boolean checkDuplicate(String fname)
     {
         int flag=0;
         for (ContactsOfPersons p: contactList)
@@ -112,28 +112,19 @@ public class AddressBook {
         }
         return flag == 1;
     }
-
-    // used java stream
     public void getPersonNameByState(String State) {
-        List<ContactsOfPersons> list = contactList.stream().filter(contactName -> contactName.getState().equals(State))
-                .collect(Collectors.toList());
-        for (ContactsOfPersons contact : list) {
-            System.out.println("First Name: " + contact.getFirstName());
-            System.out.println("Last Name: " + contact.getLastName());
+        List<ContactsOfPersons> list  = contactList.stream().filter(contactName ->contactName.getState().equals(State)).collect(Collectors.toList());
+        for(ContactsOfPersons contact: list){
+            System.out.println("First Name: "+contact.getFirstName());
+            System.out.println("Last Name: "+contact.getLastName());
         }
-
     }
 
     public void getPersonNameByCity(String cityName) {
-        List<ContactsOfPersons> list = contactList.stream().filter(contactName -> contactName.getCity().equals(cityName))
-                .collect(Collectors.toList());
-        for (ContactsOfPersons contact : list) {
-            System.out.println("First Name: " + contact.getFirstName());
-            System.out.println("Last Name: " + contact.getLastName());
+        List<ContactsOfPersons> list  = contactList.stream().filter(contactName ->contactName.getCity().equals(cityName)).collect(Collectors.toList());
+        for(ContactsOfPersons contact: list){
+            System.out.println("First Name: "+contact.getFirstName());
+            System.out.println("Last Name: "+contact.getLastName());
         }
-    }
-    public void display() {
-        for (ContactsOfPersons person : contactList)				//Display method
-            System.out.println(person);
     }
 }

@@ -1,4 +1,3 @@
-
 public class ContactsOfPersons {
     private String firstName, lastName, address, city, state, email, zip, phoneNumber;
 

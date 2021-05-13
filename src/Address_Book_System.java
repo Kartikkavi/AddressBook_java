@@ -1,8 +1,11 @@
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Address_Book_System {
     public static Scanner sc = new Scanner(System.in);
@@ -135,6 +138,19 @@ public class Address_Book_System {
         System.out.println("Total number of people in this city " + city + ": " + countPersonInCity);
     }
 
+    private void sortContactByName() {
+        for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
+            AddressBook value = entry.getValue();
+            List<ContactsOfPersons> sortedList = value.contactList.stream().sorted(Comparator.comparing(ContactsOfPersons::getFirstName)).collect(Collectors.toList());
+
+            for(ContactsOfPersons contact:sortedList){
+                System.out.println("First Name: "+contact.getFirstName());
+                System.out.println("Last Name: "+contact.getLastName());
+
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome to the Address Book Management System using Java Stream");
         Address_Book_System addBookSystem = new Address_Book_System();
@@ -150,7 +166,8 @@ public class Address_Book_System {
                 System.out.println("5.View Contact by city Using City and Person HashMap");
                 System.out.println("6.Count Contact By State");
                 System.out.println("7.Count Contact By City");
-                System.out.println("8.Exit");
+                System.out.println("8.Sort Contact By Name");
+                System.out.println("9.Exit");
                 System.out.println("Enter choice: ");
                 int option = sc.nextInt();
                 switch (option){
@@ -208,6 +225,11 @@ public class Address_Book_System {
                     }
 
                     case 8:{
+                        System.out.println("Sort Contact");
+                        addBookSystem.sortContactByName();
+                    }
+
+                    case 9:{
                         flag = false;
                         break;
                     }

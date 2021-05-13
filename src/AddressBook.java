@@ -8,27 +8,31 @@ public class AddressBook {
     public ArrayList<ContactsOfPersons> contactList = new ArrayList<>();
 
     public void addContactDetails(){
-        System.out.println("Enter the Details of ContactDetails  person");
+        System.out.println("Enter the Details of Contact Details  person");
         System.out.println("Enter the first name");
         String firstName = sc.next();
-        System.out.println("Enter the Last name");
-        String lastName = sc.next();
-        System.out.println("Enter the Address");
-        String address = sc.next();
-        System.out.println("Enter the City");
-        String city = sc.next();
-        System.out.println("Enter the State");
-        String state = sc.next();
-        System.out.println("Enter the email");
-        String email = sc.next();
-        System.out.println("Enter the ZipCode");
-        String zip = sc.next();
-        System.out.println("Enter the contact number...");
-        String phoneNumber = sc.next();
-        //passing the value in constructor
-        ContactsOfPersons contactofPerson = new ContactsOfPersons(firstName, lastName, address, city, state, email, phoneNumber, zip);
-        contactList.add(contactofPerson);
-
+        if (Duplicate(firstName)) {
+            System.out.println("Person with this name is already exist");
+        }
+        else {
+            System.out.println("Enter the Last name");
+            String lastName = sc.next();
+            System.out.println("Enter the Address");
+            String address = sc.next();
+            System.out.println("Enter the City");
+            String city = sc.next();
+            System.out.println("Enter the State");
+            String state = sc.next();
+            System.out.println("Enter the email");
+            String email = sc.next();
+            System.out.println("Enter the ZipCode");
+            String zip = sc.next();
+            System.out.println("Enter the contact number...");
+            String phoneNumber = sc.next();
+            //passing the value in constructor
+            ContactsOfPersons contactofPerson = new ContactsOfPersons(firstName, lastName, address, city, state, email, phoneNumber, zip);
+            contactList.add(contactofPerson);
+        }
     }
 
     public boolean editContactDetails(String Name) {
@@ -74,6 +78,21 @@ public class AddressBook {
         }
         return flag == 1;
     }
+
+    public boolean Duplicate(String fname)
+    {
+        int flag=0;
+        for (ContactsOfPersons p: contactList)
+        {
+            if (p.getFirstName().equals(fname))
+            {
+                flag=1;
+                break;
+            }
+        }
+        return flag == 1;
+    }
+
     public void display() {
         for (ContactsOfPersons person : contactList)				//Display method
             System.out.println(person);

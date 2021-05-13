@@ -1,3 +1,4 @@
+
 public class ContactsOfPersons {
     private String firstName, lastName, address, city, state, email, zip, phoneNumber;
 
@@ -12,10 +13,6 @@ public class ContactsOfPersons {
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setZip(zip);
-
-    }
-
-    public ContactsOfPersons() {
 
     }
 

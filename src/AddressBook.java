@@ -1,4 +1,10 @@
 
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +15,7 @@ public class AddressBook {
 
     //arraylist  and hashmap implementation
     public static Scanner sc = new Scanner(System.in);
-    public ArrayList<ContactsOfPersons> contactList ;
+    public static ArrayList<ContactsOfPersons> contactList ;
     public HashMap<String, ArrayList<ContactsOfPersons>> personByState;
     public HashMap<String, ArrayList<ContactsOfPersons>> personByCity;
 
@@ -51,7 +57,8 @@ public class AddressBook {
                 personByCity.put(city,new ArrayList<ContactsOfPersons>());
             }
             personByCity.get(city).add(contactsofPersons);
-        }return contactList;
+        }
+        return contactList;
     }
 
     public boolean editContactDetails(String Name) {
@@ -113,7 +120,10 @@ public class AddressBook {
         return flag == 1;
     }
     public void getPersonNameByState(String State) {
-        List<ContactsOfPersons> list  = contactList.stream().filter(contactName ->contactName.getState().equals(State)).collect(Collectors.toList());
+        List<ContactsOfPersons> list  = contactList.stream()
+                .filter(contactName ->contactName
+                        .getState().equals(State))
+                .collect(Collectors.toList());
         for(ContactsOfPersons contact: list){
             System.out.println("First Name: "+contact.getFirstName());
             System.out.println("Last Name: "+contact.getLastName());
@@ -121,10 +131,44 @@ public class AddressBook {
     }
 
     public void getPersonNameByCity(String cityName) {
-        List<ContactsOfPersons> list  = contactList.stream().filter(contactName ->contactName.getCity().equals(cityName)).collect(Collectors.toList());
+        List<ContactsOfPersons> list  = contactList.stream()
+                .filter(contactName ->contactName
+                        .getCity().equals(cityName))
+                .collect(Collectors.toList());
         for(ContactsOfPersons contact: list){
             System.out.println("First Name: "+contact.getFirstName());
             System.out.println("Last Name: "+contact.getLastName());
         }
+    }
+
+
+    public static void writeData(Address_Book_System addBookSystem) {
+        StringBuffer personBuffer = new StringBuffer();
+        contactList.forEach(person -> {
+            String personDataString = person.toString().concat("\n");
+            personBuffer.append(personDataString);
+        });
+        try {
+            Files.write(Paths.get("AddressBook.txt"), personBuffer.toString().getBytes(StandardCharsets.UTF_8) );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readData(Address_Book_System addBookSystem) {
+        try{
+            Files.lines(new File("AddressBook.txt").toPath()).map(String::trim).forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        return "AddressBook{" +
+                "personByState=" + personByState +
+                ", personByCity=" + personByCity +
+                '}';
     }
 }

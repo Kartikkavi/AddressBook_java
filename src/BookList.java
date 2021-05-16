@@ -1,3 +1,5 @@
+
+
 import java.util.Scanner;
 
 public class BookList {
@@ -20,14 +22,16 @@ public class BookList {
             System.out.println("8.Sort Contact By Name");
             System.out.println("9.Sort Contact By City");
             System.out.println("10.Sort Contact By State");
-            System.out.println("11.Exit");
+            System.out.println("11.Write data");
+            System.out.println("12.Read data");
+            System.out.println("13.Exit");
             System.out.println("Enter choice: ");
             int option = sc.nextInt();
             switch (option){
                 case 1: {
                     System.out.println("Enter the Name of Address Book: ");
                     String addressBookName = sc.next();
-                    if(addBookSystem.addressBookListMap.containsKey(addressBookName)){
+                    if(Address_Book_System.addressBookListMap.containsKey(addressBookName)){
                         System.out.println("The Address book Already Exists");
                         addBookSystem.addAddressBook(addressBookName);
                         break;
@@ -97,11 +101,22 @@ public class BookList {
                 }
 
                 case 11: {
+                    AddressBook.writeData(addBookSystem);
+                    break;
+                }
+
+                case 12: {
+                    AddressBook.readData(addBookSystem);
+                    break;
+                }
+
+                case 13: {
                     flag = false;
                     break;
                 }
 
             }
+
         }
     }
 }

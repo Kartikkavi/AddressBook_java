@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Address_Book_System {
@@ -56,8 +51,9 @@ public class Address_Book_System {
                     flag = true;
 
                 case 4:
-                    flag =false;
+                    flag = false;
                     break;
+
 
             }
         }
@@ -65,6 +61,7 @@ public class Address_Book_System {
         System.out.println("AddressBook Added Successfully");
     }
 
+    // Search Person By State
     public void searchPersonByState(String stateName) {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
@@ -73,6 +70,7 @@ public class Address_Book_System {
         }
     }
 
+    // Search Person By City
     public void searchPersonByCity(String cityName) {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
@@ -81,6 +79,7 @@ public class Address_Book_System {
         }
     }
 
+    // View Person By State Using HashMap
     public void viewPersonByStateUsingHashmap(String stateName) {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
@@ -93,6 +92,7 @@ public class Address_Book_System {
         }
     }
 
+    // View Person By City Using HashMap
     public void viewPersonByCityUsingHashMap(String cityName) {
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
             AddressBook value = entry.getValue();
@@ -105,6 +105,7 @@ public class Address_Book_System {
         }
     }
 
+    // Count By State
     public void CountByState(String state) {
         int count = 0;
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
@@ -120,7 +121,7 @@ public class Address_Book_System {
         System.out.println("Total Person Count in state " + state + ": " + count);
     }
 
-    //CountByCity
+    // Count By City
     public void CountByCity(String city) {
         int countPersonInCity = 0;
         for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
@@ -136,6 +137,7 @@ public class Address_Book_System {
         System.out.println("Total number of people in this city " + city + ": " + countPersonInCity);
     }
 
+    // Sort Contact By Name
     public void sortContactByName() {
         for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
             AddressBook value = entry.getValue();
@@ -149,6 +151,7 @@ public class Address_Book_System {
         }
     }
 
+    // Sort Contact By City
     public void sortContactByCity() {
         for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
             AddressBook value = entry.getValue();
@@ -162,6 +165,7 @@ public class Address_Book_System {
         }
     }
 
+    // Sort Contact By State
     public void sortContactByState() {
         for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
             AddressBook value = entry.getValue();

@@ -1,3 +1,8 @@
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class BookList {
@@ -5,7 +10,7 @@ public class BookList {
     public static void main(String[] args) {
         System.out.println("Welcome to the Address Book Management System using Java Stream");
         Address_Book_System addBookSystem = new Address_Book_System();
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         boolean flag =true;
 
         while (flag)
@@ -20,14 +25,18 @@ public class BookList {
             System.out.println("8.Sort Contact By Name");
             System.out.println("9.Sort Contact By City");
             System.out.println("10.Sort Contact By State");
-            System.out.println("11.Exit");
+            System.out.println("11.Write data");
+            System.out.println("12.Read data");
+            System.out.println("13.Write Data from csv File");
+            System.out.println("14.Read Data into csv File");
+            System.out.println("15.Exit");
             System.out.println("Enter choice: ");
             int option = sc.nextInt();
             switch (option){
                 case 1: {
                     System.out.println("Enter the Name of Address Book: ");
                     String addressBookName = sc.next();
-                    if(addBookSystem.addressBookListMap.containsKey(addressBookName)){
+                    if(Address_Book_System.addressBookListMap.containsKey(addressBookName)){
                         System.out.println("The Address book Already Exists");
                         addBookSystem.addAddressBook(addressBookName);
                         break;
@@ -97,12 +106,36 @@ public class BookList {
                 }
 
                 case 11: {
+                    AddressBook.writeData(addBookSystem);
+                    break;
+                }
+
+                case 12: {
+                    AddressBook.readData(addBookSystem);
+                    break;
+                }
+
+                case 13:
+                    try{
+                        AddressBook.writeDataToCSV();
+                    } catch (IOException | CsvRequiredFieldEmptyException | CsvDataTypeMismatchException e) {
+                        e.printStackTrace();
+                    }
+
+                case 14:
+                    try{
+                        AddressBook.readDataFromCSV();
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                case 15: {
                     flag = false;
                     break;
                 }
 
             }
+
         }
     }
 }
-

@@ -1,3 +1,4 @@
+
 public class ContactsOfPersons {
 
     // Attributes of person
